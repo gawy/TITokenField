@@ -88,6 +88,7 @@ typedef enum {
 @property (nonatomic, assign) BOOL removesTokensOnEndEditing;
 @property (nonatomic, readonly) int numberOfLines;
 @property (nonatomic, strong) NSCharacterSet * tokenizingCharacters;
+@property (nonatomic, copy) NSString *overflowLabel;
 
 - (void)addToken:(TIToken *)title;
 - (TIToken *)addTokenWithTitle:(NSString *)title;

@@ -449,6 +449,7 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
 	
 	[self setPromptText:@"To:"];
 	[self setText:kTextEmpty];
+    [self setOverflowLabel:@"recipients"];
 	
 	_internalDelegate = [[TITokenFieldInternalDelegate alloc] init];
 	[_internalDelegate setTokenField:self];
@@ -541,7 +542,7 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
 			CGFloat availableWidth = self.bounds.size.width - self.leftView.bounds.size.width - self.rightView.bounds.size.width;
 			
 			if (_tokens.count > 1 && untokSize.width > availableWidth){
-				untokenized = [NSString stringWithFormat:@"%d recipients", titles.count];
+				untokenized = [NSString stringWithFormat:@"%d %@", titles.count, self.overflowLabel];
 			}
 			
 		}
