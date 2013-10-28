@@ -468,6 +468,13 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
 	[self layoutTokensAnimated:NO];
 }
 
+- (CGSize)intrinsicContentSize {
+    CGFloat topMargin = floor(self.font.lineHeight * 4 / 7);
+    CGFloat lineHeight = self.font.lineHeight + topMargin + 5;
+    CGSize size = CGSizeMake(_tokenCaret.x, _tokenCaret.y + lineHeight);
+    return size;
+}
+
 - (void)setText:(NSString *)text {
 	[super setText:(text.length == 0 ? kTextEmpty : text)];
 }
