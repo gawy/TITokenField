@@ -821,14 +821,15 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
         
         UILabel * label =  _placeHolderLabel;
 		if (!label || ![label isKindOfClass:[UILabel class]]){
-			label = [[UILabel alloc] initWithFrame:CGRectMake(_tokenCaret.x + 3, _tokenCaret.y + 2, self.rightView.bounds.size.width, self.rightView.bounds.size.height)];
+			label = [[UILabel alloc] initWithFrame:CGRectMake(_tokenCaret.x + 3, _tokenCaret.y + 5,
+                                                              self.rightView.bounds.size.width, self.rightView.bounds.size.height)]; //TODO avoid using these magic numbers
 			[label setTextColor:[UIColor colorWithWhite:0.75 alpha:1]];
-			 _placeHolderLabel = label;
+            _placeHolderLabel = label;
             [self addSubview: _placeHolderLabel];
 		}
 		
 		[label setText:placeholder];
-		[label setFont:[UIFont systemFontOfSize:(self.font.pointSize + 1)]];
+		[label setFont:self.font];
 		[label sizeToFit];
 	}
 	else
