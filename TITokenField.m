@@ -468,6 +468,11 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
 	[self layoutTokensAnimated:NO];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _placeHolderLabel.frame = [self placeholderRectForBounds:self.frame];
+}
+
 - (CGSize)intrinsicContentSize {
     CGFloat topMargin = floor(self.font.lineHeight * 4 / 7);
     CGFloat lineHeight = self.font.lineHeight + topMargin + 5;
@@ -821,8 +826,7 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
         
         UILabel * label =  _placeHolderLabel;
 		if (!label || ![label isKindOfClass:[UILabel class]]){
-			label = [[UILabel alloc] initWithFrame:CGRectMake(_tokenCaret.x + 3, _tokenCaret.y + 5,
-                                                              self.rightView.bounds.size.width, self.rightView.bounds.size.height)]; //TODO avoid using these magic numbers
+			label = [[UILabel alloc] initWithFrame:[self placeholderRectForBounds:self.bounds]];
 			[label setTextColor:[UIColor colorWithWhite:0.75 alpha:1]];
             _placeHolderLabel = label;
             [self addSubview: _placeHolderLabel];
@@ -857,7 +861,11 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
 }
 
 - (CGRect)placeholderRectForBounds:(CGRect)bounds {
-	return [self textRectForBounds:bounds];
+    CGRect frame = CGRectOffset(bounds, 15, 0);
+    if (self.rightViewWidth) {
+        frame.size.width -= (self.rightViewWidth + 10);
+    }
+    return frame;
 }
 
 - (CGRect)leftViewRectForBounds:(CGRect)bounds {
